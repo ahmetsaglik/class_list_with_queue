@@ -1,0 +1,92 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct node{
+	char name[50];
+	char lastname[50];
+	node * next;
+};
+
+node * root = NULL;
+
+void enque(char name[50],char lastname[50])
+{
+	if(root==NULL)
+	{
+	 	node * temp = (node *)malloc(sizeof(node));
+	 	strcpy(temp->name,name);
+	 	strcpy(temp->lastname,lastname);
+	 	temp->next = NULL;
+	 	root = temp;
+	}
+	else
+	{
+		node *r = root;
+		while(r->next!=NULL)
+		{
+			r=r->next;
+		}
+		node * temp = (node *)malloc(sizeof(node));
+		strcpy(temp->name,name);
+		strcpy(temp->lastname,lastname);
+		r->next = temp;
+		temp->next = NULL;
+		
+	}
+	
+}
+
+void list()
+{
+	node *iter = root;
+	while(iter!=NULL)
+	{
+		printf("%s %s ->",iter->name,iter->lastname);
+		iter=iter->next;
+		
+	}
+}
+
+void deque()
+{
+	node * temp = root;
+	root=root->next;
+	free(temp);
+	
+}
+
+
+
+
+int main()
+{
+	while(1)
+	{
+		int a;
+		char name[50],lastname[50];
+		printf("\n1)enque(adding)\n2)deque(removing)\n3)list\n");
+		printf("menu:");
+		scanf("%d",&a);
+		
+		switch(a)
+		{
+			case 1:
+				printf("student's name:");
+				scanf("%s",&name);
+				printf("student's lastname:");
+				scanf("%s",&lastname);
+				enque(name,lastname);
+				break;
+			case 2:
+				deque();
+				break;
+			case 3:
+				list();
+				break;
+			
+		}
+	}
+	
+	
+}
